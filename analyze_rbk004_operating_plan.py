@@ -19,7 +19,9 @@ warnings.filterwarnings("ignore", category=UserWarning, module="openpyxl")
 
 
 LISTING_NAME = "RBK004"
-PRODUCT_AGE_NOTE = "产品适用年龄为 3-7 岁；baby 词不能一刀切，需要按 0-2、2-4 等年龄段和实际转化拆开判断。"
+PRODUCT_AGE_NOTE = "产品适用年龄为 3-7 岁；所有搜索词都需要按年龄段、对象、功能、场景和实际转化拆分判断，不能按单一词根一刀切。"
+PRODUCT_AGE_MIN = 3
+PRODUCT_AGE_MAX = 7
 
 
 def safe_div(numerator: Any, denominator: Any, digits: int = 9) -> float | None:
@@ -80,6 +82,7 @@ def has_any(text: str, words: list[str]) -> bool:
 
 def extract_age_segment(term: str) -> str:
     t = term.lower().strip()
+    has_infant_context = bool(re.search(r"\bbaby\b|\binfant\b|\btoddler\b|months?", t))
     month_patterns = [r"\b\d+\s*-\s*\d+\s*months?\b", r"\b\d+\s*months?\b", r"\binfant\b"]
     if any(re.search(pattern, t) for pattern in month_patterns):
         return "0-2"
@@ -88,7 +91,7 @@ def extract_age_segment(term: str) -> str:
     if range_match:
         low = int(range_match.group(1))
         high = int(range_match.group(2))
-        if high <= 2 or high > 12:
+        if high <= 2 or (has_infant_context and high > 12):
             return "0-2"
         return f"{low}-{high}"
 
@@ -110,6 +113,15 @@ def extract_age_segment(term: str) -> str:
     if re.search(r"\b(kid|kids|child|children|childrens)\b", t):
         return "kids泛"
     return "未标明"
+
+
+def age_segment_overlaps_product(segment: str) -> bool:
+    match = re.fullmatch(r"(\d{1,2})-(\d{1,2})", clean_text(segment))
+    if not match:
+        return False
+    low = int(match.group(1))
+    high = int(match.group(2))
+    return low <= PRODUCT_AGE_MAX and high >= PRODUCT_AGE_MIN
 
 
 def extract_search_features(term: str) -> dict[str, str]:
@@ -191,7 +203,7 @@ def classify_relevance(term: str) -> str:
         return "低相关词"
     if features["age_segment"] == "0-2":
         return "低相关词"
-    if features["root"] == "baby sunglasses" and features["age_segment"] in {"2-4", "3-5", "3-6", "3-7", "4-6"}:
+    if age_segment_overlaps_product(features["age_segment"]):
         return "年龄词"
     if features["root"] == "baby sunglasses":
         return "年龄泛词"
@@ -237,7 +249,7 @@ def explain_search_term_cause(
         else:
             reasons.append("词义和儿童太阳镜主购买意图不够贴合，流量进入后承接难度高")
     elif relevance == "年龄泛词":
-        reasons.append("词根包含 baby 但没有明确年龄段，需要用实际转化和 ABA 热度判断，不能按 baby 词整体否定")
+        reasons.append("词根带年龄或对象倾向但年龄段不明确，需要用实际转化和 ABA 热度判断，不能按单一词根整体否定")
     elif relevance == "场景词":
         reasons.append("场景词表达的是出行/海滩需求，不一定已经明确要买儿童太阳镜，转化链路更长")
     elif relevance == "泛流量词":
@@ -1225,36 +1237,47 @@ def build_evidence_chain(
             "动作": "下调商品页面广告位加价",
         },
         {
-            "结论": "高价值词仍集中在 kids/toddler/polarized",
-            "依据1": "搜索词中 kids/toddler/polarized 多个词有订单",
+            "结论": "高价值词集中在高相关、可转化且有市场热度的意图簇",
+            "依据1": "搜索词中多个高相关意图簇已有订单",
             "依据2": "关键词监控显示核心词自然排名靠前",
-            "依据3": "ABA 中 kids sunglasses / toddler sunglasses 热度高且集中度不极端",
-            "归因解释": "这些词同时满足市场需求、产品相关性和转化承接，广告投入更容易沉淀到自然排名和自然订单",
-            "动作": "保核心词，新增长尾精确词",
+            "依据3": "ABA 中部分相关词热度高且集中度不极端",
+            "归因解释": "这类意图簇同时满足市场需求、产品相关性和转化承接，广告投入更容易沉淀到自然排名和自然订单",
+            "动作": "保高相关核心词，新增长尾精确词",
         },
         {
-            "结论": "baby 词需要按年龄段拆分，不能整体否定",
-            "依据1": "baby 0-2 与 3-7 岁定位错配",
-            "依据2": "baby 2-4 需要看转化和 ABA 词根热度",
-            "依据3": "部分 beach 场景词头部集中或广告 ACOS 偏高",
-            "归因解释": "baby 是年龄词根，不是天然低相关；真正要拆的是年龄段和购买意图，0-2 应控掉，2-4 或 toddler 相关词若有转化可低预算验证",
-            "动作": "按年龄段否定、降价或小预算验证",
+            "结论": "搜索词不能按单一词根整体否定或整体放量",
+            "依据1": "同一词根下不同年龄段、功能或场景会对应不同购买意图",
+            "依据2": "搜索词聚类表已按词根、年龄段、性别、功能、场景拆分",
+            "依据3": "动作需要同时看转化、ACOS、广告位和 ABA 市场热度",
+            "归因解释": "底层逻辑是先拆搜索意图，再看广告承接和市场热度；词根只是聚类入口，不是判断好坏的唯一依据",
+            "动作": "按聚类结果分别否定、降价、保量或小预算验证",
         },
     ]
     return pd.DataFrame(rows)
 
 
-def build_execution_plan() -> pd.DataFrame:
-    return pd.DataFrame(
-        [
-            {"优先级": "P0", "时间": "当天", "动作": "下调商品页面和站外广告位", "验证指标": "商品页面花费占比下降，ACOS 下降", "原因": "广告位层同时出现低 CTR、低 CVR、高 ACOS"},
-            {"优先级": "P0", "时间": "当天", "动作": "先控 baby 0-2/婴幼儿词和无转化 baby 泛词，不整体否定 baby 2-4", "验证指标": "浪费花费减少，baby 2-4 单独看 CVR 和 ACOS", "原因": "年龄段不同代表的用户意图不同，不能只按 baby 词根下结论"},
-            {"优先级": "P1", "时间": "1-2 天", "动作": "保 kids sunglasses、toddler sunglasses、sunglasses for kids 核心预算", "验证指标": "核心自然排名保持前 10", "原因": "核心词有订单和自然排名承接"},
-            {"优先级": "P1", "时间": "1-2 天", "动作": "把 polarized sunglasses kids、kids sunglasses polarized、kid sunglasses 转精确", "验证指标": "新精确词 3 单以上且 ACOS < 30.00%", "原因": "搜索词已有转化，ABA 也有市场热度"},
-            {"优先级": "P2", "时间": "3-5 天", "动作": "把 beach essentials 改为 kids beach essentials / beach essentials for kids 小预算测试", "验证指标": "CTR、CVR、ACOS 达标后再加预算", "原因": "泛场景词过宽，但儿童海滩场景有市场信号"},
-            {"优先级": "P2", "时间": "3-7 天", "动作": "复核 Coupon、Deal、促销折扣和售价", "验证指标": "客单价、件单价、净毛利率回升", "原因": "近期订单涨但净毛利率下降"},
-        ]
-    )
+def build_execution_plan(search_clusters: pd.DataFrame | None = None, placement: pd.DataFrame | None = None) -> pd.DataFrame:
+    rows = [
+        {"优先级": "P0", "时间": "当天", "动作": "下调低转化、高 ACOS 的广告位", "验证指标": "低效广告位花费占比下降，整体 ACOS 下降", "原因": "广告位层如果同时出现低 CTR、低 CVR、高 ACOS，会持续放大无效点击"},
+        {"优先级": "P0", "时间": "当天", "动作": "按搜索词聚类表处理错配意图簇", "验证指标": "浪费花费减少，低相关簇 ACOS 下降", "原因": "同一词根下不同年龄段、对象、功能、场景可能对应不同购买意图，不能按词根整体判断"},
+        {"优先级": "P1", "时间": "1-2 天", "动作": "保留有订单、低 ACOS、自然排名可承接的核心词预算", "验证指标": "核心自然排名保持前 10，广告 ACOS 不恶化", "原因": "这类词同时具备广告转化和自然承接，预算更容易沉淀为自然权重"},
+        {"优先级": "P1", "时间": "1-2 天", "动作": "把高转化搜索词拆成精确投放", "验证指标": "新精确词 3 单以上且 ACOS < 30.00%", "原因": "搜索词已有转化时，拆精确能减少宽泛匹配带来的意图噪音"},
+        {"优先级": "P2", "时间": "3-5 天", "动作": "把高热度但宽泛的场景词改为更贴近产品对象的长尾词小预算测试", "验证指标": "CTR、CVR、ACOS 达标后再加预算", "原因": "场景词有需求但购买意图不一定足够短，需要用更明确的长尾词承接"},
+        {"优先级": "P2", "时间": "3-7 天", "动作": "复核 Coupon、Deal、促销折扣和售价", "验证指标": "客单价、件单价、净毛利率回升", "原因": "近期订单增长但净毛利率下降时，需要确认是否由让利或成交结构变化导致"},
+    ]
+    if search_clusters is not None and not search_clusters.empty:
+        weak = search_clusters.sort_values(["spend", "ACOS"], ascending=[False, False]).iloc[0]
+        rows.insert(
+            1,
+            {
+                "优先级": "P0",
+                "时间": "当天",
+                "动作": f"优先处理 {clean_text(weak.get('词根聚类'))}/{clean_text(weak.get('年龄段'))}/{clean_text(weak.get('功能属性'))} 搜索意图簇",
+                "验证指标": f"该簇花费下降，CVR 从 {pct(weak.get('CVR'))} 改善，ACOS 从 {pct(weak.get('ACOS'))} 下降",
+                "原因": clean_text(weak.get("归因解释", "该簇消耗和产出不匹配，需要先按意图拆分后再决定否定、降价或保留")),
+            },
+        )
+    return pd.DataFrame(rows)
 
 
 def write_excel(
@@ -1814,7 +1837,7 @@ def main() -> int:
         rank_df,
         aba_df,
     )
-    execution_plan = build_execution_plan()
+    execution_plan = build_execution_plan(search_clusters, placement_recent)
 
     excel_path = paths.output_dir / f"{LISTING_NAME}分析过程清单.xlsx"
     html_path = paths.output_dir / f"{LISTING_NAME}完整运营分析报告.html"

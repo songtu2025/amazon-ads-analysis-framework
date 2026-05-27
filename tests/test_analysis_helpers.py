@@ -5,6 +5,8 @@ from tempfile import TemporaryDirectory
 import pandas as pd
 
 from analyze_rbk004_operating_plan import (
+    PRODUCT_AGE_NOTE,
+    build_execution_plan,
     build_search_clusters,
     build_html_report,
     classify_relevance,
@@ -48,6 +50,10 @@ class AnalysisHelperTests(unittest.TestCase):
     def test_baby_month_like_range_is_low_relevance(self):
         self.assertEqual(extract_search_features("baby sunglasses 18-24")["age_segment"], "0-2")
         self.assertEqual(classify_relevance("baby sunglasses 18-24"), zh(0x4F4E, 0x76F8, 0x5173, 0x8BCD))
+
+    def test_default_report_logic_does_not_hardcode_baby_example(self):
+        self.assertNotIn("baby", PRODUCT_AGE_NOTE.lower())
+        self.assertNotIn("baby", build_execution_plan().to_string(index=False).lower())
 
     def test_classify_search_term_uses_relevance_and_multi_metric_action(self):
         row = {

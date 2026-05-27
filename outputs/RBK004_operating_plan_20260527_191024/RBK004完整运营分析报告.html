@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>RBK004 运营洞察报告</title>
+<style>
+body { margin:0; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft YaHei",Arial,sans-serif; color:#17212b; background:#f5f7fa; }
+.wrap { max-width:1160px; margin:0 auto; padding:28px 28px 54px; }
+.hero { background:#14324a; color:#fff; border-radius:8px; padding:30px 34px; }
+.hero h1 { margin:0 0 10px; font-size:30px; letter-spacing:0; }
+.hero p { margin:7px 0 0; color:#d8e7f3; line-height:1.75; max-width:960px; }
+.kpis { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:12px; margin:16px 0 4px; }
+.kpi { background:#fff; border:1px solid #e0e6ed; border-radius:8px; padding:15px; }
+.kpi .label { color:#617487; font-size:13px; }
+.kpi .value { font-size:23px; font-weight:700; margin-top:6px; }
+.section { background:#fff; border:1px solid #e0e6ed; border-radius:8px; padding:22px; margin-top:16px; }
+.section h2 { margin:0 0 12px; font-size:21px; }
+.section-lead { color:#526579; line-height:1.75; margin:0 0 14px; }
+.insight-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; }
+.insight { border:1px solid #dfe7ef; border-left:4px solid #2f6f9f; border-radius:8px; padding:14px 15px; background:#fbfdff; }
+.insight-title { font-size:16px; font-weight:700; margin-bottom:6px; }
+.insight-meta { color:#5f7286; font-size:13px; line-height:1.55; margin-bottom:8px; }
+.insight p { margin:0; line-height:1.7; }
+.next-action { margin-top:10px; color:#173f5f; font-weight:700; line-height:1.6; }
+.problem { border-left-color:#d9480f; background:#fffaf6; }
+.opportunity { border-left-color:#2f9e44; background:#f6fff8; }
+.note { background:#eef5fb; border:1px solid #d7e6f2; border-radius:8px; padding:13px 15px; color:#27465f; line-height:1.7; }
+@media (max-width:900px) { .kpis,.insight-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } }
+@media (max-width:620px) { .wrap { padding:16px; } .kpis,.insight-grid { grid-template-columns:1fr; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="hero">
+    <h1>RBK004 运营洞察报告</h1>
+    <p>执行摘要：当前 Listing 有订单增长，但增长质量被净毛利、广告位效率和部分搜索词承接拖累。下一步不建议直接扩预算，而是先把浪费广告位和错配年龄词收口，再把预算迁移到有转化、ABA 有热度、自然排名能承接的词根。</p>
+    <p>明细追溯请看 Excel：HTML 只保留结论、洞察和动作；活动、广告位、投放、搜索词、ABA 的逐行过程已放在分析过程清单中。</p>
+  </div>
+
+  <div class="kpis">
+    <div class="kpi"><div class="label">近完整周期销售额</div><div class="value">$109,811.82</div></div>
+    <div class="kpi"><div class="label">近期订单变化</div><div class="value">16.37%</div></div>
+    <div class="kpi"><div class="label">近期净毛利率</div><div class="value">14.00%</div></div>
+    <div class="kpi"><div class="label">近期广告 ACOS</div><div class="value">35.57%</div></div>
+  </div>
+
+  <div class="section">
+    <h2>1. 执行摘要</h2>
+    <p class="section-lead">产品适用年龄为 3-7 岁；所有搜索词都需要按年龄段、对象、功能、场景和实际转化拆分判断，不能按单一词根一刀切。 排名口径：数字越小排名越好；报告统一使用最佳排名、平均排名、最差排名。</p>
+    <div class="note">结论：当前重点不是继续买更多流量，而是提高流量质量。订单增长、销售额增长、净毛利率和广告 ACOS 需要一起判断；只看销量会高估经营状态，只看 ACOS 又会漏掉自然排名和市场词机会。</div>
+  </div>
+
+  <div class="section">
+    <h2>2. 关键洞察</h2>
+    <p class="section-lead">以下结论来自 Listing、广告、搜索词、排名和 ABA 的交叉判断，不使用单一指标定性。</p>
+    <div class="insight-grid"><div class="insight ">
+  <div class="insight-title">Listing 当前是订单增长但利润承压</div>
+  <div class="insight-meta">订单量变化 16.37% / 销售额变化 3.04% / 净毛利率从 23.93% 到 14.00%</div>
+  <p>订单增长快于销售额，说明增量订单的客单价或成交结构变弱；净毛利率同步下降，说明增长质量被促销、成本或广告效率稀释</p>
+  <div class="next-action">动作：先控广告浪费，再保核心排名</div>
+</div><div class="insight ">
+  <div class="insight-title">近期存在价格/促销让利迹象</div>
+  <div class="insight-meta">客单价变化 -11.46% / 件单价变化 -13.90% / 促销费用率变化 1.75%</div>
+  <p>客单价和件单价同时下降时，即使促销费用率只小幅变化，也可能说明折扣、组合销售或低价变体占比在拉低利润</p>
+  <div class="next-action">动作：复核 Coupon、Deal、价格和促销折扣</div>
+</div><div class="insight ">
+  <div class="insight-title">商品页面广告位拖累效率</div>
+  <div class="insight-meta">商品页面 ACOS 49.61% / 商品页面 CVR 18.85% / 商品页面花费 $360.09</div>
+  <p>商品页面流量更接近浏览和竞品比较场景，购买意图弱于搜索结果页；当 CTR、CVR 和 ACOS 同时弱时，说明位置本身不适合作为主预算入口</p>
+  <div class="next-action">动作：下调商品页面广告位加价</div>
+</div><div class="insight ">
+  <div class="insight-title">高价值词集中在高相关、可转化且有市场热度的意图簇</div>
+  <div class="insight-meta">搜索词中多个高相关意图簇已有订单 / 关键词监控显示核心词自然排名靠前 / ABA 中部分相关词热度高且集中度不极端</div>
+  <p>这类意图簇同时满足市场需求、产品相关性和转化承接，广告投入更容易沉淀到自然排名和自然订单</p>
+  <div class="next-action">动作：保高相关核心词，新增长尾精确词</div>
+</div><div class="insight ">
+  <div class="insight-title">搜索词不能按单一词根整体否定或整体放量</div>
+  <div class="insight-meta">同一词根下不同年龄段、功能或场景会对应不同购买意图 / 搜索词聚类表已按词根、年龄段、性别、功能、场景拆分 / 动作需要同时看转化、ACOS、广告位和 ABA 市场热度</div>
+  <p>底层逻辑是先拆搜索意图，再看广告承接和市场热度；词根只是聚类入口，不是判断好坏的唯一依据</p>
+  <div class="next-action">动作：按聚类结果分别否定、降价、保量或小预算验证</div>
+</div></div>
+  </div>
+
+  <div class="section">
+    <h2>3. 当前核心问题</h2>
+    <p class="section-lead">先处理会持续吞预算、压利润或误导扩量判断的问题。</p>
+    <div class="insight-grid"><div class="insight problem">
+  <div class="insight-title">增长质量弱于订单增长</div>
+  <div class="insight-meta">订单变化 16.37%，销售额变化 3.04%，净毛利率 14.00%</div>
+  <p>订单和销售额没有同步放大，且利润率承压，说明当前不是单纯缺流量，而是增量订单的价格、促销或广告效率需要先校正。</p>
+  <div class="next-action">动作：先控浪费，再放量。</div>
+</div><div class="insight problem">
+  <div class="insight-title">客单价和利润结构需要复核</div>
+  <div class="insight-meta">近期客单价 $11.25，件单价 $8.90</div>
+  <p>客单价、件单价和净毛利率要一起看。若订单增长伴随件单价或净利率走低，优先排查 Coupon、Deal、售价和低价变体占比。</p>
+  <div class="next-action">动作：复核促销、价格和利润结构。</div>
+</div><div class="insight problem">
+  <div class="insight-title">商品页面 广告位拖累效率</div>
+  <div class="insight-meta">花费 $360.09，CVR 18.85%，ACOS 49.61%</div>
+  <p>该位置更多承接浏览或竞品页流量，购买意图弱于搜索结果页；当 CVR 和 ACOS 同时变差时，应先降位置权重</p>
+  <div class="next-action">动作：下调广告位</div>
+</div><div class="insight problem">
+  <div class="insight-title">kids sunglasses / kids泛 需要收口</div>
+  <div class="insight-meta">花费 $1,447.37，订单 473，ACOS 31.71%</div>
+  <p>市场热度较高，但广告端样本或效率还不足以证明可放量</p>
+  <div class="next-action">动作：小预算保留</div>
+</div></div>
+  </div>
+
+  <div class="section">
+    <h2>4. 当前增长机会</h2>
+    <p class="section-lead">只把同时具备广告承接、市场热度或排名承接的方向列为机会。</p>
+    <div class="insight-grid"><div class="insight opportunity">
+  <div class="insight-title">kids sunglasses 是优先承接方向</div>
+  <div class="insight-meta">订单 473，CVR 43.88%，ACOS 31.71%，ABA排名 3,360</div>
+  <p>市场热度较高，但广告端样本或效率还不足以证明可放量</p>
+  <div class="next-action">动作：小预算保留</div>
+</div><div class="insight opportunity">
+  <div class="insight-title">toddler sunglasses 是优先承接方向</div>
+  <div class="insight-meta">订单 188，CVR 37.38%，ACOS 33.85%，ABA排名 4,934</div>
+  <p>市场热度较高，但广告端样本或效率还不足以证明可放量</p>
+  <div class="next-action">动作：小预算保留</div>
+</div><div class="insight opportunity">
+  <div class="insight-title">boys sunglasses 是优先承接方向</div>
+  <div class="insight-meta">订单 78，CVR 34.21%，ACOS 33.74%，ABA排名 35,002</div>
+  <p>市场热度较高，但广告端样本或效率还不足以证明可放量</p>
+  <div class="next-action">动作：小预算保留</div>
+</div></div>
+  </div>
+
+  <div class="section">
+    <h2>5. 广告优化动作</h2>
+    <p class="section-lead">这里列方向和原因，不展开逐活动、逐广告位或逐词明细。</p>
+    <div class="insight-grid"><div class="insight ">
+  <div class="insight-title">广告位：搜索结果顶部(首页)</div>
+  <div class="insight-meta">花费 $3,729.32，订单 1,187，ACOS 32.91%</div>
+  <p>顶部位置虽然 CPC 通常更高，但订单规模和转化效率证明它能承接核心需求</p>
+  <div class="next-action">动作：保留顶部</div>
+</div><div class="insight ">
+  <div class="insight-title">广告位：搜索结果的其余位置</div>
+  <div class="insight-meta">花费 $1,521.53，订单 442，ACOS 36.21%</div>
+  <p>花费、订单和效率没有形成明确负面信号，暂不做剧烈调整</p>
+  <div class="next-action">动作：保持</div>
+</div><div class="insight ">
+  <div class="insight-title">活动：RBK004-AUTO</div>
+  <div class="insight-meta">花费 $904.76，订单 308，ACOS 31.26%</div>
+  <p>活动有订单规模，但 ACOS 已接近利润约束，需要保住流量同时控制竞价</p>
+  <div class="next-action">动作：控价保量</div>
+</div><div class="insight ">
+  <div class="insight-title">活动：RBK004-kids sunglasses-广泛</div>
+  <div class="insight-meta">花费 $901.83，订单 283，ACOS 34.69%</div>
+  <p>活动有订单规模，但 ACOS 已接近利润约束，需要保住流量同时控制竞价</p>
+  <div class="next-action">动作：控价保量</div>
+</div><div class="insight ">
+  <div class="insight-title">搜索词：beach essentials for family</div>
+  <div class="insight-meta">花费 $11.03，订单 0，ACOS -</div>
+  <p>场景词表达的是出行/海滩需求，不一定已经明确要买儿童太阳镜，转化链路更长；点击样本已经出现但订单少，说明当前词的转化承接弱；ABA 搜索热度较高，若相关性成立就值得纳入重点词池</p>
+  <div class="next-action">动作：否定</div>
+</div><div class="insight ">
+  <div class="insight-title">搜索词：vacation essentials</div>
+  <div class="insight-meta">花费 $8.40，订单 0，ACOS -</div>
+  <p>场景词表达的是出行/海滩需求，不一定已经明确要买儿童太阳镜，转化链路更长；点击样本已经出现但订单少，说明当前词的转化承接弱；ABA 搜索热度较高，若相关性成立就值得纳入重点词池</p>
+  <div class="next-action">动作：否定</div>
+</div><div class="insight ">
+  <div class="insight-title">搜索词：sunglasses for toddlers</div>
+  <div class="insight-meta">花费 $6.21，订单 0，ACOS -</div>
+  <p>泛太阳镜词用户人群过宽，Listing 需要同时匹配年龄、性别和儿童场景才容易成交</p>
+  <div class="next-action">动作：否定</div>
+</div></div>
+  </div>
+
+  <div class="section">
+    <h2>6. 搜索词聚类与 ABA 交叉归因</h2>
+    <p class="section-lead">搜索词动作解决单个词怎么调；聚类与 ABA 交叉解决共同词根、年龄段、功能和场景是否值得继续买。</p>
+    <div class="insight-grid"><div class="insight ">
+  <div class="insight-title">kids polarized sunglasses</div>
+  <div class="insight-meta">广告表现好 + ABA高价值；ABA排名 89,124</div>
+  <p>广告端已证明能转化，ABA 也证明市场需求存在，适合做核心词池</p>
+  <div class="next-action">动作：重点保位并拆精确</div>
+</div><div class="insight ">
+  <div class="insight-title">toddler sunglasses</div>
+  <div class="insight-meta">广告表现好 + ABA高价值；ABA排名 4,934</div>
+  <p>广告端已证明能转化，ABA 也证明市场需求存在，适合做核心词池</p>
+  <div class="next-action">动作：重点保位并拆精确</div>
+</div><div class="insight ">
+  <div class="insight-title">sunglasses泛词</div>
+  <div class="insight-meta">广告表现好 + ABA高价值；ABA排名 43,944</div>
+  <p>广告端已证明能转化，ABA 也证明市场需求存在，适合做核心词池</p>
+  <div class="next-action">动作：重点保位并拆精确</div>
+</div><div class="insight ">
+  <div class="insight-title">boys sunglasses</div>
+  <div class="insight-meta">广告表现好 + ABA高价值；ABA排名 35,002</div>
+  <p>广告端已证明能转化，ABA 也证明市场需求存在，适合做核心词池</p>
+  <div class="next-action">动作：重点保位并拆精确</div>
+</div><div class="insight ">
+  <div class="insight-title">排名词：child sunglasses girl</div>
+  <div class="insight-meta">最佳自然第 1，平均自然第 2</div>
+  <p>自然排名已经靠前，广告的主要任务是防守核心位置，不是继续用高价冲排名</p>
+  <div class="next-action">动作：保自然排名，广告控价防守</div>
+</div><div class="insight ">
+  <div class="insight-title">排名词：childrens sunglasses girls</div>
+  <div class="insight-meta">最佳自然第 1，平均自然第 2</div>
+  <p>自然排名已经靠前，广告的主要任务是防守核心位置，不是继续用高价冲排名</p>
+  <div class="next-action">动作：保自然排名，广告控价防守</div>
+</div><div class="insight ">
+  <div class="insight-title">排名词：toddler sunglasses age 2-4 boys</div>
+  <div class="insight-meta">最佳自然第 1，平均自然第 2</div>
+  <p>自然排名已经靠前，广告的主要任务是防守核心位置，不是继续用高价冲排名</p>
+  <div class="next-action">动作：保自然排名，广告控价防守</div>
+</div></div>
+  </div>
+
+  <div class="section">
+    <h2>7. 未来 3-7 天执行重点</h2>
+    <p class="section-lead">按优先级执行，先控损，再迁移预算，再验证新机会。</p>
+    <div class="insight-grid"><div class="insight ">
+  <div class="insight-title">P0 / 当天</div>
+  <div class="insight-meta">下调低转化、高 ACOS 的广告位</div>
+  <p>广告位层如果同时出现低 CTR、低 CVR、高 ACOS，会持续放大无效点击</p>
+  <div class="next-action">验证：低效广告位花费占比下降，整体 ACOS 下降</div>
+</div><div class="insight ">
+  <div class="insight-title">P0 / 当天</div>
+  <div class="insight-meta">优先处理 kids sunglasses/kids泛/基础 搜索意图簇</div>
+  <p>市场热度较高，但广告端样本或效率还不足以证明可放量</p>
+  <div class="next-action">验证：该簇花费下降，CVR 从 43.88% 改善，ACOS 从 31.71% 下降</div>
+</div><div class="insight ">
+  <div class="insight-title">P0 / 当天</div>
+  <div class="insight-meta">按搜索词聚类表处理错配意图簇</div>
+  <p>同一词根下不同年龄段、对象、功能、场景可能对应不同购买意图，不能按词根整体判断</p>
+  <div class="next-action">验证：浪费花费减少，低相关簇 ACOS 下降</div>
+</div><div class="insight ">
+  <div class="insight-title">P1 / 1-2 天</div>
+  <div class="insight-meta">保留有订单、低 ACOS、自然排名可承接的核心词预算</div>
+  <p>这类词同时具备广告转化和自然承接，预算更容易沉淀为自然权重</p>
+  <div class="next-action">验证：核心自然排名保持前 10，广告 ACOS 不恶化</div>
+</div><div class="insight ">
+  <div class="insight-title">P1 / 1-2 天</div>
+  <div class="insight-meta">把高转化搜索词拆成精确投放</div>
+  <p>搜索词已有转化时，拆精确能减少宽泛匹配带来的意图噪音</p>
+  <div class="next-action">验证：新精确词 3 单以上且 ACOS &lt; 30.00%</div>
+</div><div class="insight ">
+  <div class="insight-title">P2 / 3-5 天</div>
+  <div class="insight-meta">把高热度但宽泛的场景词改为更贴近产品对象的长尾词小预算测试</div>
+  <p>场景词有需求但购买意图不一定足够短，需要用更明确的长尾词承接</p>
+  <div class="next-action">验证：CTR、CVR、ACOS 达标后再加预算</div>
+</div><div class="insight ">
+  <div class="insight-title">P2 / 3-7 天</div>
+  <div class="insight-meta">复核 Coupon、Deal、促销折扣和售价</div>
+  <p>近期订单增长但净毛利率下降时，需要确认是否由让利或成交结构变化导致</p>
+  <div class="next-action">验证：客单价、件单价、净毛利率回升</div>
+</div></div>
+  </div>
+
+  <div class="section">
+    <h2>8. 明细追溯</h2>
+    <p class="section-lead">明细追溯请看 Excel。里面保留了 Listing 经营诊断、广告活动、广告位、投放、搜索词动作、用户搜索词明细归因、用户搜索词归类分析、搜索词 ABA 交叉分析、关键词排名承接和 ABA 机会词。</p>
+  </div>
+</div>
+</body>
+</html>
